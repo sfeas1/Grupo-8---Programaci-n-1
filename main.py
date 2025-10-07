@@ -11,12 +11,11 @@ def mostrar_menu():
 
 def main():
     nombre_archivo = "datos_stock.txt"
-    
-    # Carga stock desde el archivo si existe
+
     stock = cargar_datos(nombre_archivo)
 
 
-    if not stock:  # Solo si el archivo está vacío
+    if not stock: 
         stock = [
             {"modelo": "Nike Air Max", "talle": 42, "cantidad": 5, "precio": 150000},
             {"modelo": "Adidas Superstar", "talle": 41, "cantidad": 8, "precio": 120000},
