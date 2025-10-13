@@ -11,22 +11,15 @@ def mostrar_menu():
 
 def main():
     nombre_archivo = "datos_stock.txt"
-
     stock = cargar_datos(nombre_archivo)
-
 
     if not stock: 
         stock = [
-            {"modelo": "Nike Air Max", "talle": 42, "cantidad": 5, "precio": 150000},
-            {"modelo": "Adidas Superstar", "talle": 41, "cantidad": 8, "precio": 120000},
-            {"modelo": "Puma RS-X", "talle": 43, "cantidad": 3, "precio": 135000},
-            {"modelo": "Reebok Classic", "talle": 42, "cantidad": 6, "precio": 110000},
-            {"modelo": "Converse All Star", "talle": 40, "cantidad": 7, "precio": 90000},
-            {"modelo": "Vans Old Skool", "talle": 41, "cantidad": 4, "precio": 95000},
-            {"modelo": "New Balance 574", "talle": 43, "cantidad": 5, "precio": 130000},
-            {"modelo": "Asics Gel-Lyte", "talle": 42, "cantidad": 2, "precio": 140000},
-            {"modelo": "Fila Disruptor", "talle": 40, "cantidad": 3, "precio": 100000},
-            {"modelo": "Under Armour HOVR", "talle": 41, "cantidad": 6, "precio": 125000},
+            {"id": 1, "modelo": "Nike Air Max", "talle": 42, "cantidad": 5, "precio": 150000},
+            {"id": 2, "modelo": "Adidas Superstar", "talle": 41, "cantidad": 8, "precio": 120000},
+            {"id": 3, "modelo": "Puma RS-X", "talle": 43, "cantidad": 3, "precio": 135000},
+            {"id": 4, "modelo": "Reebok Classic", "talle": 42, "cantidad": 6, "precio": 110000},
+            {"id": 5, "modelo": "Converse All Star", "talle": 40, "cantidad": 7, "precio": 90000},
         ]
 
     while True:

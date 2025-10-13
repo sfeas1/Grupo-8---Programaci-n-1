@@ -5,12 +5,13 @@ def cargar_datos(nombre_archivo):
             for linea in archivo:
                 datos = linea.strip().split(",")
 
-                if len(datos) == 4:
+                if len(datos) == 5:
                     producto = {
-                        "modelo": datos[0],
-                        "talle": int(datos[1]),
-                        "cantidad": int(datos[2]),
-                        "precio": float(datos[3])
+                        "id": int(datos[0]),
+                        "modelo": datos[1],
+                        "talle": int(datos[2]),
+                        "cantidad": int(datos[3]),
+                        "precio": float(datos[4])
                     }
                     lista_productos.append(producto)
     except FileNotFoundError:
@@ -18,9 +19,8 @@ def cargar_datos(nombre_archivo):
     return lista_productos
 
 
-# Guarda la lista de productos en el archivo
 def guardar_datos(nombre_archivo, lista_productos):
     with open(nombre_archivo, "w", encoding="utf-8") as archivo:
         for producto in lista_productos:
-            linea = f"{producto['modelo']},{producto['talle']},{producto['cantidad']},{producto['precio']}\n"
+            linea = f"{producto['id']},{producto['modelo']},{producto['talle']},{producto['cantidad']},{producto['precio']}\n"
             archivo.write(linea)

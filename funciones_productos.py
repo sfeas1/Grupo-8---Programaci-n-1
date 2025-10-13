@@ -1,12 +1,27 @@
+def generar_id(stock):
+    if not stock:
+        return 1
+    else:
+        return max(p["id"] for p in stock) + 1
+
+
 def agregar_producto(stock):
     print("\n--- Agregar producto ---")
     modelo = input("Modelo: ")
-    talle = int(input("Talle: "))
+
+    while True:
+        talle_input = input("Talle (solo números): ")
+        if talle_input.isdigit():
+            talle = int(talle_input)
+            break
+        else:
+            print("Error: el talle debe ser un número entero.")
+
     cantidad = int(input("Cantidad: "))
     precio = float(input("Precio: "))
 
-
     nuevo = {
+        "id": generar_id(stock),
         "modelo": modelo,
         "talle": talle,
         "cantidad": cantidad,
@@ -14,7 +29,7 @@ def agregar_producto(stock):
     }
 
     stock.append(nuevo)
-    print(f" Producto '{modelo}' agregado correctamente.")
+    print(f"Producto '{modelo}' agregado correctamente con ID {nuevo['id']}.")
 
 
 def listar_productos(stock):
@@ -23,31 +38,60 @@ def listar_productos(stock):
         print("No hay productos cargados.")
         return
 
-    for i, producto in enumerate(stock, start=1):
-        print(f"{i}. {producto['modelo']} - Talle {producto['talle']} - Cantidad: {producto['cantidad']} - Precio: ${producto['precio']}")
+    for producto in stock:
+        print(f"ID: {producto['id']} | Modelo: {producto['modelo']} | "
+              f"Talle: {producto['talle']} | Cantidad: {producto['cantidad']} | Precio: ${producto['precio']}")
 
 
 def buscar_producto(stock):
     print("\n--- Buscar producto ---")
-    termino = input("Ingrese el modelo a buscar: ").lower()
-    encontrados = [p for p in stock if termino in p['modelo'].lower()]
+    print("1. Buscar por modelo")
+    print("2. Buscar por ID")
+    opcion = input("Seleccione una opción: ")
 
-    if encontrados:
-        print(f"Se encontraron {len(encontrados)} resultado(s):")
-        for producto in encontrados:
-            print(f"- {producto['modelo']} (Talle {producto['talle']}, Cantidad: {producto['cantidad']}, Precio: ${producto['precio']})")
+    if opcion == "1":
+        termino = input("Ingrese el modelo a buscar: ").lower()
+        encontrados = [p for p in stock if termino in p['modelo'].lower()]
+
+        if encontrados:
+            print(f"\nSe encontraron {len(encontrados)} resultado(s):")
+            for producto in encontrados:
+                print(f"ID: {producto['id']} | Modelo: {producto['modelo']} | "
+                      f"Talle: {producto['talle']} | Cantidad: {producto['cantidad']} | Precio: ${producto['precio']}")
+        else:
+            print("No se encontró ningún producto con ese modelo.")
+
+    elif opcion == "2":
+        try:
+            id_buscar = int(input("Ingrese el ID del producto: "))
+        except ValueError:
+            print("Error: el ID debe ser un número.")
+            return
+
+        for producto in stock:
+            if producto["id"] == id_buscar:
+                print(f"\nProducto encontrado:")
+                print(f"ID: {producto['id']} | Modelo: {producto['modelo']} | "
+                      f"Talle: {producto['talle']} | Cantidad: {producto['cantidad']} | Precio: ${producto['precio']}")
+                return
+        print("No se encontró ningún producto con ese ID.")
+
     else:
-        print(" No se encontró ningún producto con ese nombre.")
+        print("Opción inválida.")
 
 
 def eliminar_producto(stock):
     print("\n--- Eliminar producto ---")
-    modelo = input("Ingrese el modelo a eliminar: ").lower()
+    try:
+        id_eliminar = int(input("Ingrese el ID del producto a eliminar: "))
+    except ValueError:
+        print("Error: el ID debe ser un número.")
+        return
 
     for producto in stock:
-        if producto['modelo'].lower() == modelo:
+        if producto["id"] == id_eliminar:
             stock.remove(producto)
-            print(f" Producto '{modelo}' eliminado correctamente.")
+            print(f"Producto con ID {id_eliminar} eliminado correctamente.")
             return
 
-    print(" No se encontró el producto en el stock.")
+    print("No se encontró ningún producto con ese ID.")

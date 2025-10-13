@@ -1,11 +1,6 @@
-Nike Air Max,42,5,150000
-Adidas Superstar,41,8,120000
-Puma RS-X,43,3,135000
-Reebok Classic,42,6,110000
-Converse All Star,40,7,90000
-Vans Old Skool,41,4,95000
-New Balance 574,43,5,130000
-Asics Gel-Lyte,42,2,140000
-Fila Disruptor,40,3,100000
-Under Armour HOVR,41,6,125000
-jordan 1,45,10,200.0
+1,Nike Air Max,42,5,150000
+2,Adidas Superstar,41,8,120000
+3,Puma RS-X,43,3,135000
+4,Reebok Classic,42,6,110000
+5,Converse All Star,40,7,90000
+6,Air Jordan 3,45,10,180000.0
