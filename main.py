@@ -1,13 +1,6 @@
 from funciones_productos import agregar_producto, listar_productos, buscar_producto, eliminar_producto
 from funciones_archivos import cargar_datos, guardar_datos
-
-def mostrar_menu():
-    print("\n=== GESTOR DE STOCK - TIENDA DE ZAPATILLAS ===")
-    print("1. Agregar producto")
-    print("2. Listar productos")
-    print("3. Buscar producto")
-    print("4. Eliminar producto")
-    print("5. Guardar y salir")
+from interfaz import mostrar_menu, pedir_opcion, mostrar_mensaje, pausar
 
 def main():
     nombre_archivo = "datos_stock.txt"
@@ -24,7 +17,7 @@ def main():
 
     while True:
         mostrar_menu()
-        opcion = input("Selecciona una opción: ")
+        opcion = pedir_opcion()
 
         if opcion == "1":
             agregar_producto(stock)
@@ -36,10 +29,12 @@ def main():
             eliminar_producto(stock)
         elif opcion == "5":
             guardar_datos(nombre_archivo, stock)
-            print("Datos guardados. ¡Hasta luego!")
+            mostrar_mensaje("Datos guardados. ¡Hasta luego!")
             break
         else:
-            print("Opción no válida, intenta de nuevo.")
+            mostrar_mensaje("Opción no válida, intenta de nuevo.")
+        
+        pausar()
 
 if __name__ == "__main__":
     main()
