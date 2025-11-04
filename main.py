@@ -1,4 +1,4 @@
-from funciones_productos import agregar_producto, listar_productos, buscar_producto, eliminar_producto
+from funciones_productos import agregar_producto, listar_productos, buscar_producto, eliminar_producto, contar_productos
 from funciones_archivos import cargar_datos, guardar_datos
 from interfaz import mostrar_menu, pedir_opcion, mostrar_mensaje, pausar
 
@@ -6,7 +6,7 @@ def main():
     nombre_archivo = "datos_stock.txt"
     stock = cargar_datos(nombre_archivo)
 
-    if not stock: 
+    if not stock:
         stock = [
             {"id": 1, "modelo": "Nike Air Max", "talle": 42, "cantidad": 5, "precio": 150000},
             {"id": 2, "modelo": "Adidas Superstar", "talle": 41, "cantidad": 8, "precio": 120000},
@@ -28,6 +28,9 @@ def main():
         elif opcion == "4":
             eliminar_producto(stock)
         elif opcion == "5":
+            total = contar_productos(stock)
+            mostrar_mensaje(f"Hay {total} producto(s) en el stock.")
+        elif opcion == "6":
             guardar_datos(nombre_archivo, stock)
             mostrar_mensaje("Datos guardados. ¡Hasta luego!")
             break
@@ -35,6 +38,9 @@ def main():
             mostrar_mensaje("Opción no válida, intenta de nuevo.")
         
         pausar()
+
+
+
 
 if __name__ == "__main__":
     main()
