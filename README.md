@@ -15,12 +15,9 @@ Incluye funcionalidades para **agregar, buscar, listar, actualizar y eliminar pr
 
 ## 👥 Roles del equipo
 
-* **Lógica y Menú Principal:** Feas Santiago
-* **Funciones de Operaciones con Productos:** Gallo Julián Gabriel
-* **Manejo de Datos y Archivos:** Rodríguez Joaquín
-* **Interfaz en Consola y Presentación:** Di Carlo Canzani Camila
-* **Testing e Integración Final:** Pereyra María Guadalupe
-
+* **Team Leader, Lógica y Menú Principal** - Feas Santiago.
+* **Tester, Funciones de Operaciones con Productos** - Gallo Julián Gabriel.
+* **Developer, Manejo de Datos y Archivos** - Rodríguez Joaquín.
 ---
 
 ## 📂 Estructura de carpetas y archivos
@@ -37,7 +34,7 @@ Incluye funcionalidades para **agregar, buscar, listar, actualizar y eliminar pr
 **Descripción:**
 
 * `main.py`: menú principal y lógica general del programa.
-* `funciones_productos.py`: operaciones con productos (agregar, buscar, eliminar, actualizar).
+* `funciones_productos.py`: operaciones con productos (agregar, buscar, contar, eliminar, actualizar).
 * `funciones_archivos.py`: manejo de archivos para guardar y cargar datos.
 * `interfaz.py`: presentación de menús y mensajes en consola.
 * `datos_stock.txt`: almacenamiento del stock registrado.
