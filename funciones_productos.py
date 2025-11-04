@@ -103,7 +103,8 @@ def contar_productos(stock, indice=0):
     Función recursiva que cuenta cuántos productos hay en el stock.
     No usa len(), sino que se llama a sí misma hasta recorrer toda la lista.
     """
-    if indice == len(stock):  # Caso base: llegó al final
+    if indice == len(stock): 
         return 0
-    else:  # Caso recursivo: cuenta 1 y avanza
+    else:  
         return 1 + contar_productos(stock, indice + 1)
+
