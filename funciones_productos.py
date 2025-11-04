@@ -1,3 +1,48 @@
+def generar_id(stock):
+    if not stock:
+        return 1
+    else:
+        return max(p["id"] for p in stock) + 1
+
+
+def agregar_producto(stock):
+    print("\n--- Agregar producto ---")
+    modelo = input("Modelo: ")
+
+    while True:
+        talle_input = input("Talle (solo números): ")
+        if talle_input.isdigit():
+            talle = int(talle_input)
+            break
+        else:
+            print("Error: el talle debe ser un número entero.")
+
+    cantidad = int(input("Cantidad: "))
+    precio = float(input("Precio: "))
+
+    nuevo = {
+        "id": generar_id(stock),
+        "modelo": modelo,
+        "talle": talle,
+        "cantidad": cantidad,
+        "precio": precio
+    }
+
+    stock.append(nuevo)
+    print(f"Producto '{modelo}' agregado correctamente con ID {nuevo['id']}.")
+
+
+def listar_productos(stock):
+    print("\n--- Lista de productos ---")
+    if not stock:
+        print("No hay productos cargados.")
+        return
+
+    for producto in stock:
+        print(f"ID: {producto['id']} | Modelo: {producto['modelo']} | "
+              f"Talle: {producto['talle']} | Cantidad: {producto['cantidad']} | Precio: ${producto['precio']}")
+
+
 def buscar_producto(stock):
     print("\n--- Buscar producto ---")
     print("1. Buscar por modelo")
@@ -52,10 +97,13 @@ def eliminar_producto(stock):
     print("No se encontró ningún producto con ese ID.")
 
 
-# Función recursiva para contar productos
+#FUNCIÓN RECURSIVA 
 def contar_productos(stock, indice=0):
-    """Cuenta recursivamente cuántos productos hay en el stock."""
-    if indice == len(stock):  # Caso base: cuando llegamos al final de la lista
+    """
+    Función recursiva que cuenta cuántos productos hay en el stock.
+    No usa len(), sino que se llama a sí misma hasta recorrer toda la lista.
+    """
+    if indice == len(stock):  # Caso base: llegó al final
         return 0
-    else:  # Caso recursivo: contamos 1 y seguimos con el siguiente elemento
+    else:  # Caso recursivo: cuenta 1 y avanza
         return 1 + contar_productos(stock, indice + 1)
