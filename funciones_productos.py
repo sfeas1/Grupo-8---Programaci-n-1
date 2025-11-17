@@ -8,15 +8,7 @@ def generar_id(stock):
 def agregar_producto(stock):
     print("\n--- Agregar producto ---")
     modelo = input("Modelo: ")
-
-    while True:
-        talle_input = input("Talle (solo números): ")
-        if talle_input.isdigit():
-            talle = int(talle_input)
-            break
-        else:
-            print("Error: el talle debe ser un número entero.")
-
+    talle = int(input("Talle: "))
     cantidad = int(input("Cantidad: "))
     precio = float(input("Precio: "))
 
@@ -97,9 +89,8 @@ def eliminar_producto(stock):
     print("No se encontró ningún producto con ese ID.")
 
 
-#FUNCIÓN RECURSIVA 
+# FUNCIÓN RECURSIVA
 def contar_productos(stock, indice=0):
-
     if indice == len(stock):
         return 0
     else:
