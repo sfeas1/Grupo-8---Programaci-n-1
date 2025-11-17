@@ -12,8 +12,12 @@ def main():
             {"id": 2, "modelo": "Adidas Superstar", "talle": 41, "cantidad": 8, "precio": 120000},
             {"id": 3, "modelo": "Puma RS-X", "talle": 43, "cantidad": 3, "precio": 135000},
             {"id": 4, "modelo": "Reebok Classic", "talle": 42, "cantidad": 6, "precio": 110000},
-            {"id": 5, "modelo": "Converse All Star", "talle": 40, "cantidad": 7, "precio": 90000},
+            {"id": 5, "modelo": "Converse All Star", "talle": 40, "cantidad": 7, "precio": 90000}
         ]
+
+    modelos_unicos = {p["modelo"] for p in stock}
+    talles_disponibles = {p["talle"] for p in stock}
+    ids_usados = {p["id"] for p in stock}
 
     while True:
         mostrar_menu()
@@ -21,26 +25,43 @@ def main():
 
         if opcion == "1":
             agregar_producto(stock)
+            modelos_unicos = {p["modelo"] for p in stock}
+            talles_disponibles = {p["talle"] for p in stock}
+            ids_usados = {p["id"] for p in stock}
+
         elif opcion == "2":
             listar_productos(stock)
+
         elif opcion == "3":
             buscar_producto(stock)
+
         elif opcion == "4":
             eliminar_producto(stock)
+            modelos_unicos = {p["modelo"] for p in stock}
+            talles_disponibles = {p["talle"] for p in stock}
+            ids_usados = {p["id"] for p in stock}
+
         elif opcion == "5":
             total = contar_productos(stock)
             mostrar_mensaje(f"Hay {total} producto(s) en el stock.")
+
         elif opcion == "6":
+            mostrar_mensaje(f"Modelos únicos: {modelos_unicos}")
+
+        elif opcion == "7":
+            mostrar_mensaje(f"Talles disponibles: {talles_disponibles}")
+
+        elif opcion == "8":
             guardar_datos(nombre_archivo, stock)
             mostrar_mensaje("Datos guardados. ¡Hasta luego!")
             break
+
         else:
             mostrar_mensaje("Opción no válida, intenta de nuevo.")
         
         pausar()
 
-
-
-
 if __name__ == "__main__":
     main()
+
+
