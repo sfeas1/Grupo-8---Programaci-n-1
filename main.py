@@ -1,4 +1,4 @@
-from funciones_productos import agregar_producto, listar_productos, buscar_producto, eliminar_producto, contar_productos
+from funciones_productos import agregar_producto, listar_productos, buscar_producto, eliminar_producto, contar_productos, mostrar_mensaje
 from funciones_archivos import cargar_datos, guardar_datos
 from interfaz import mostrar_menu, pedir_opcion, mostrar_mensaje, pausar
 import os
@@ -8,21 +8,17 @@ def main():
     directorio_datos = "data"
     os.makedirs(directorio_datos, exist_ok=True)
 
-    # Ruta al archivo
-    nombre_archivo = os.path.join(directorio_datos, "datos_stock.txt")
-
-    # Carga el stock
-    stock = cargar_datos(nombre_archivo)
-
     # Si está vacío, se cargan valores iniciales predeterminados
-    if not stock:
-        stock = [
-            {"id": 1, "modelo": "Nike Air Max", "talle": 42, "cantidad": 5, "precio": 150000},
-            {"id": 2, "modelo": "Adidas Superstar", "talle": 41, "cantidad": 8, "precio": 120000},
-            {"id": 3, "modelo": "Puma RS-X", "talle": 43, "cantidad": 3, "precio": 135000},
-            {"id": 4, "modelo": "Reebok Classic", "talle": 42, "cantidad": 6, "precio": 110000},
-            {"id": 5, "modelo": "Converse All Star", "talle": 40, "cantidad": 7, "precio": 90000}
-        ]
+    stock_predeterminado = [
+        {"id": 1, "modelo": "Nike Air Max", "talle": 42, "cantidad": 5, "precio": 150000},
+        {"id": 2, "modelo": "Adidas Superstar", "talle": 41, "cantidad": 8, "precio": 120000},
+        {"id": 3, "modelo": "Puma RS-X", "talle": 43, "cantidad": 3, "precio": 135000},
+        {"id": 4, "modelo": "Reebok Classic", "talle": 42, "cantidad": 6, "precio": 110000},
+        {"id": 5, "modelo": "Converse All Star", "talle": 40, "cantidad": 7, "precio": 90000}
+    ]
+ 
+    # Carga el stock
+    stock, ids_usados = cargar_datos(stock_predeterminado=stock_predeterminado)       
 
     # Conjuntos
     modelos_unicos = {p["modelo"] for p in stock}
@@ -34,24 +30,27 @@ def main():
         opcion = pedir_opcion()
 
         if opcion == "1":
-            # Agregar producto
-            # Validación con conjuntos
             print("\n--- Agregar producto ---")
             modelo = input("Modelo: ")
             talle = int(input("Talle: "))
-
+            precio = float(input("Precio: "))
+            cantidad = int(input("Cantidad: "))
+        
+            # Validaciones con conjuntos
             if modelo in modelos_unicos:
                 mostrar_mensaje("⚠ Este modelo ya existe en el stock.")
             else:
                 mostrar_mensaje("Modelo nuevo agregado al listado de modelos únicos.")
-
+        
             if talle in talles_disponibles:
                 mostrar_mensaje("Este talle ya existía en el stock.")
             else:
                 mostrar_mensaje("Nuevo talle incorporado al sistema.")
-
-            agregar_producto(stock, ids_usados)
-
+        
+            # Pasa los datos ingresados a la función
+            agregar_producto(stock, ids_usados, modelos_unicos, talles_disponibles,
+                             modelo, talle, precio, cantidad)
+        
             # Actualiza los conjuntos
             modelos_unicos = {p["modelo"] for p in stock}
             talles_disponibles = {p["talle"] for p in stock}
@@ -81,7 +80,7 @@ def main():
             mostrar_mensaje(f"Talles disponibles: {talles_disponibles}")
 
         elif opcion == "8":
-            guardar_datos(nombre_archivo, stock)
+            guardar_datos(stock)
             mostrar_mensaje("Datos guardados. ¡Hasta luego!")
             break
 

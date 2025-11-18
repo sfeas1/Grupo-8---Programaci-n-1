@@ -1,5 +1,0 @@
-1,Nike Air Max,42,5,150000
-2,Adidas Superstar,41,8,120000
-3,Puma RS-X,43,3,135000
-4,Reebok Classic,42,6,110000
-5,Converse All Star,40,7,90000

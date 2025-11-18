@@ -1,31 +1,35 @@
 def generar_id(ids_usados):
-   # Genera un ID único para un producto usando el conjunto ids_usados.
+    # Genera el siguiente ID entero disponible.
+    if not ids_usados:
+        return 1
+    else:
+        return max(ids_usados) + 1
+
+
+def agregar_producto(stock, ids_usados, modelos_unicos, talles_disponibles,
+                    modelo, talle, precio, cantidad):
+    # Generar un ID único
     nuevo_id = 1
     while nuevo_id in ids_usados:
         nuevo_id += 1
-    return nuevo_id
 
-def agregar_producto(stock, ids_usados):
-    print("\n--- Agregar producto ---")
-    modelo = input("Modelo: ")
-    talle = int(input("Talle: "))
-    cantidad = int(input("Cantidad: "))
-    precio = float(input("Precio: "))
-
-    nuevo_id = generar_id(ids_usados)
-
-    nuevo = {
+    producto = {
         "id": nuevo_id,
         "modelo": modelo,
         "talle": talle,
-        "cantidad": cantidad,
-        "precio": precio
+        "precio": precio,
+        "cantidad": cantidad
     }
 
-    stock.append(nuevo)
-    ids_usados.add(nuevo_id)  # Se actualiza el conjunto ids_usados
+    stock.append(producto)
+    ids_usados.add(nuevo_id)
+    modelos_unicos.add(modelo)
+    talles_disponibles.add(talle)
 
-    print(f"Producto '{modelo}' agregado correctamente con ID {nuevo_id}.")
+    print(f"Producto agregado con ID {nuevo_id}.")
+
+def mostrar_mensaje(mensaje):
+    print(mensaje)
 
 
 def listar_productos(stock):
@@ -91,6 +95,7 @@ def eliminar_producto(stock):
             return
 
     print("No se encontró ningún producto con ese ID.")
+
 
 # Función recursiva
 def contar_productos(stock, indice=0):
