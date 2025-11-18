@@ -5,7 +5,9 @@ def mostrar_menu():
     print("3. Buscar producto")
     print("4. Eliminar producto")
     print("5. Contar productos")
-    print("6. Guardar y salir")
+    print("6. Mostrar modelos únicos")
+    print("7. Mostrar talles disponibles")
+    print("8. Guardar y salir")
 
 
 def pedir_opcion():
