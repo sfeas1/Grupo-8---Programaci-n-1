@@ -33,5 +33,12 @@
         "talle": 40,
         "cantidad": 7,
         "precio": 90000
+    },
+    {
+        "id": 6,
+        "modelo": "Jordan 4",
+        "talle": 38,
+        "precio": 100000.0,
+        "cantidad": 10
     }
 ]

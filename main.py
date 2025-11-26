@@ -1,14 +1,22 @@
-from funciones_productos import agregar_producto, listar_productos, buscar_producto, eliminar_producto, contar_productos, mostrar_mensaje
-from funciones_archivos import cargar_datos, guardar_datos
-from interfaz import mostrar_menu, pedir_opcion, mostrar_mensaje, pausar
+from functions.funciones_productos import (
+    agregar_producto, listar_productos, buscar_producto,
+    eliminar_producto, contar_productos
+)
+from functions.funciones_archivos import cargar_datos, guardar_datos
+from functions.funciones_validaciones import (
+    validar_modelo, validar_talle,
+    validar_precio, validar_cantidad
+)
+from utils.interfaz import mostrar_menu, pedir_opcion, mostrar_mensaje, pausar, pedir_input
 import os
+
 
 def main():
     # Crea carpeta de datos persistentes
     directorio_datos = "data"
     os.makedirs(directorio_datos, exist_ok=True)
 
-    # Si está vacío, se cargan valores iniciales predeterminados
+    # Valores iniciales si no existe el archivo
     stock_predeterminado = [
         {"id": 1, "modelo": "Nike Air Max", "talle": 42, "cantidad": 5, "precio": 150000},
         {"id": 2, "modelo": "Adidas Superstar", "talle": 41, "cantidad": 8, "precio": 120000},
@@ -16,14 +24,13 @@ def main():
         {"id": 4, "modelo": "Reebok Classic", "talle": 42, "cantidad": 6, "precio": 110000},
         {"id": 5, "modelo": "Converse All Star", "talle": 40, "cantidad": 7, "precio": 90000}
     ]
- 
+
     # Carga el stock
-    stock, ids_usados = cargar_datos(stock_predeterminado=stock_predeterminado)       
+    stock, ids_usados = cargar_datos(stock_predeterminado=stock_predeterminado)
 
     # Conjuntos
     modelos_unicos = {p["modelo"] for p in stock}
     talles_disponibles = {p["talle"] for p in stock}
-    ids_usados = {p["id"] for p in stock}
 
     while True:
         mostrar_menu()
@@ -31,30 +38,42 @@ def main():
 
         if opcion == "1":
             print("\n--- Agregar producto ---")
-            modelo = input("Modelo: ")
-            talle = int(input("Talle: "))
-            precio = float(input("Precio: "))
-            cantidad = int(input("Cantidad: "))
-        
-            # Validaciones con conjuntos
-            if modelo in modelos_unicos:
-                mostrar_mensaje("⚠ Este modelo ya existe en el stock.")
-            else:
-                mostrar_mensaje("Modelo nuevo agregado al listado de modelos únicos.")
-        
-            if talle in talles_disponibles:
-                mostrar_mensaje("Este talle ya existía en el stock.")
-            else:
-                mostrar_mensaje("Nuevo talle incorporado al sistema.")
-        
-            # Pasa los datos ingresados a la función
-            agregar_producto(stock, ids_usados, modelos_unicos, talles_disponibles,
-                             modelo, talle, precio, cantidad)
-        
-            # Actualiza los conjuntos
-            modelos_unicos = {p["modelo"] for p in stock}
-            talles_disponibles = {p["talle"] for p in stock}
-            ids_usados = {p["id"] for p in stock}
+
+            # Pide y valida el modelo
+            while True:
+                try:
+                    modelo = validar_modelo(pedir_input("Modelo: "))
+                    break
+                except ValueError as e:
+                    mostrar_mensaje(f"❌ {e}")
+
+            # Pide y valida el talle
+            while True:
+                try:
+                    talle = validar_talle(pedir_input("Talle: "))
+                    break
+                except ValueError as e:
+                    mostrar_mensaje(f"❌ {e}")
+
+            # Pide y valida el precio
+            while True:
+                try:
+                    precio = validar_precio(pedir_input("Precio: "))
+                    break
+                except ValueError as e:
+                    mostrar_mensaje(f"❌ {e}")
+
+            # Pide y valida la cantidad
+            while True:
+                try:
+                    cantidad = validar_cantidad(pedir_input("Cantidad: "))
+                    break
+                except ValueError as e:
+                    mostrar_mensaje(f"❌ {e}")
+
+            agregar_producto(stock, ids_usados, modelos_unicos, talles_disponibles, modelo, talle, precio, cantidad)
+
+            mostrar_mensaje("✅ Producto agregado correctamente.")
 
         elif opcion == "2":
             listar_productos(stock)
@@ -65,6 +84,7 @@ def main():
         elif opcion == "4":
             eliminar_producto(stock)
 
+            # Actualiza conjuntos
             modelos_unicos = {p["modelo"] for p in stock}
             talles_disponibles = {p["talle"] for p in stock}
             ids_usados = {p["id"] for p in stock}
@@ -86,8 +106,9 @@ def main():
 
         else:
             mostrar_mensaje("Opción no válida, intenta de nuevo.")
-        
+
         pausar()
+
 
 if __name__ == "__main__":
     main()
